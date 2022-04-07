@@ -13,6 +13,7 @@ code/lerna-debug.log*
 
 # OS
 code/.DS_Store
+.DS_Store
 
 # Tests
 code/coverage
