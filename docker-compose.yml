@@ -6,9 +6,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
-  redis:
-    image: "redis:alpine"
-    restart: always
+  #redis:
+  #  image: "redis:alpine"
+  #  restart: always
   node:
     image: node:16.4.0-alpine
     restart: always
@@ -17,7 +17,7 @@ services:
     ports:
       - 8080:${NODE_PORT}
     working_dir: /usr/src/app/
-    command: ["npm", "start"]
+    command: ["npm", "start:debug"]
     depends_on:
       - mongo
-      - redis
+      #- redis

@@ -28,7 +28,7 @@ code/*.launch
 code/.settings/
 code/*.sublime-workspace
 
-.env
+**/.env
 
 # IDE - VSCode
 .vscode/*
