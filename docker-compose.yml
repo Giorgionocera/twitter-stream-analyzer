@@ -6,6 +6,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+    ports:
+      - 27017:${MONGODB_PORT}
   #redis:
   #  image: "redis:alpine"
   #  restart: always
@@ -17,7 +19,7 @@ services:
     ports:
       - 8080:${NODE_PORT}
     working_dir: /usr/src/app/
-    command: ["npm", "start:debug"]
+    command: "npx nest start --debug --watch"
     depends_on:
       - mongo
       #- redis
