@@ -5,8 +5,10 @@ import { TweetsModule } from 'src/tweets/tweets.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://mongo:27017/stream-analyzer'),
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MongooseModule.forRoot(process.env.MONGODB_HOST),
     TweetsModule,
   ],
 })
