@@ -4,7 +4,7 @@ import { Author } from 'src/schemas/author.schema';
 
 export type TweetDocument = Tweet & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Tweet {
   @Prop({ required: true })
   id: string;
@@ -13,7 +13,7 @@ export class Tweet {
   author: Author;
 
   @Prop({ required: true })
-  createdAt: string;
+  tweetCreatedAt: string;
 
   @Prop({ required: true })
   text: string;

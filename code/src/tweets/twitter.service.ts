@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { HttpService } from '@nestjs/axios';
-import { TwitterResponse } from 'src/interfaces';
-import { Observable } from 'rxjs';
-import { AxiosResponse } from 'axios';
 import { TwitterApi } from 'twitter-api-v2';
 import { TweetsService } from './tweets.service';
 
@@ -12,7 +8,6 @@ export class TwitterService {
   twitterClient: TwitterApi;
 
   constructor(private config: ConfigService, private mongo: TweetsService) {
-    console.log(this.config.get('TWITTER_BEARER_TOKEN'));
     this.twitterClient = new TwitterApi(
       this.config.get('TWITTER_BEARER_TOKEN'),
     );
@@ -39,8 +34,8 @@ export class TwitterService {
       keepAliveTimeout: Infinity,
     });
 
-    for await (const { data } of stream) {
-      this.mongo.create(data);
+    for await (const { data, includes } of stream) {
+      this.mongo.create(data, includes);
     }
   }
 }

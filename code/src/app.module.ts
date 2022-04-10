@@ -8,7 +8,11 @@ import { TweetsModule } from 'src/tweets/tweets.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.MONGODB_HOST),
+    MongooseModule.forRoot(process.env.MONGODB_HOST, {
+      dbName: process.env.MONGODB_DB_NAME,
+      user: process.env.MONGODB_USERNAME,
+      pass: process.env.MONGODB_PASSWORD,
+    }),
     TweetsModule,
   ],
 })

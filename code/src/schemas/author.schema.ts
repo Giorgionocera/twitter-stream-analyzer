@@ -3,13 +3,13 @@ import { Document } from 'mongoose';
 
 export type AuthorDocument = Author & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Author {
   @Prop({ unique: true })
   authorId: string;
 
   @Prop()
-  createdAt: string;
+  twitterCreatedAt: string;
 
   @Prop()
   name: string;
