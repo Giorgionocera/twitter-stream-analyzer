@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { Author } from 'src/schemas/author.schema';
 
 export type TweetDocument = Tweet & Document;
 
@@ -10,7 +9,7 @@ export class Tweet {
   id: string;
 
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Author' })
-  author: Author;
+  author: string;
 
   @Prop({ required: true })
   tweetCreatedAt: string;

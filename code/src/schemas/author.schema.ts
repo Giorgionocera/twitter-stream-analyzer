@@ -8,17 +8,20 @@ export class Author {
   @Prop({ unique: true })
   authorId: string;
 
-  @Prop()
+  @Prop({ required: true })
   twitterCreatedAt: string;
 
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   username: string;
 
   @Prop({ unique: true })
   address: string; // User wallet address
+
+  @Prop({ required: true })
+  valid: boolean;
 }
 
 export const AuthorSchema = SchemaFactory.createForClass(Author);
