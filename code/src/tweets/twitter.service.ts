@@ -1,3 +1,4 @@
+import { isBetweenStartEnd } from 'src/utils';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TwitterApi } from 'twitter-api-v2';
@@ -14,6 +15,8 @@ export class TwitterService {
   }
 
   async getSearchStream() {
+    console.log('Starting twitter search stream...');
+
     const stream = this.twitterClient.v2.searchStream({
       expansions: ['author_id', 'entities.mentions.username'],
       'tweet.fields': [
@@ -35,7 +38,18 @@ export class TwitterService {
     });
 
     for await (const { data, includes } of stream) {
-      this.mongo.create(data, includes);
+      if (
+        isBetweenStartEnd(
+          process.env.ANALYZER_START_DATE,
+          process.env.ANALYZER_END_DATE,
+          data.created_at,
+        )
+      ) {
+        this.mongo.create(data, includes);
+      } else {
+        console.log('Out of env dates range, exit...');
+        break;
+      }
     }
   }
 }
