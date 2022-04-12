@@ -33,4 +33,12 @@ export class AuthorsService {
       return authorModel._id.toString();
     }
   }
+
+  async find(limit = 10, page = 0) {
+    return await this.authorModel
+      .find({ valid: true })
+      .select(['authorId', 'address'])
+      .limit(limit)
+      .skip(page * limit);
+  }
 }

@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Tweet, TweetDocument } from 'src/schemas/tweet.schema';
 import { ApiV2Includes, TweetV2 } from 'twitter-api-v2';
 import { mapTweet, searchValidAddress } from 'src/utils';
-import { AuthorsService } from './authors.service';
+import { AuthorsService } from 'src/authors/authors.service';
 
 @Injectable()
 export class TweetsService {
