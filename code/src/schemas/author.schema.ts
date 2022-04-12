@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as paginate from 'mongoose-paginate-v2';
 
 export type AuthorDocument = Author & Document;
 
@@ -24,4 +25,8 @@ export class Author {
   valid: boolean;
 }
 
-export const AuthorSchema = SchemaFactory.createForClass(Author);
+const AuthorSchema = SchemaFactory.createForClass(Author);
+
+AuthorSchema.plugin(paginate);
+
+export { AuthorSchema };

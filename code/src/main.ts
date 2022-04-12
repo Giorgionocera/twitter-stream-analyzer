@@ -7,18 +7,21 @@ import { AppModule } from './app.module';
 import { TweetsModule } from 'src/tweets/tweets.module';
 import { TwitterService } from 'src/tweets/twitter.service';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({ logger: true }),
+    new FastifyAdapter(),
   );
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const twitterService = app
     .select(TweetsModule)
     .get(TwitterService, { strict: true });
 
-  twitterService.getSearchStream();
+  twitterService.getSearchStream().catch((error) => console.error(error));
 
   const config = new DocumentBuilder()
     .setTitle('Twitter Analyzer')
@@ -26,7 +29,6 @@ async function bootstrap() {
       'This is a twitter analyzer for bitsong testnet subscriptions.',
     )
     .setVersion('1.0')
-    .addTag('bitsong')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

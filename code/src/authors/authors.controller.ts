@@ -1,21 +1,37 @@
-import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Param,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { PaginationParams } from 'src/dto';
 import { AuthorsService } from './authors.service';
 
+@ApiTags('subscriptions')
 @Controller('subscriptions')
 export class AuthorsController {
   constructor(private authorsService: AuthorsService) {}
 
-  @Get(':limit/:page')
-  async findAll(@Param('limit') limit: string, @Param('page') page: string) {
+  @Get()
+  async findAll() {
     try {
-      const authors = await this.authorsService.find(
-        parseInt(limit, 10),
-        parseInt(page, 10),
-      );
+      const authors = await this.authorsService.findAll();
 
       return authors;
     } catch (error) {
-      throw new BadRequestException();
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Get(':limit/:page')
+  async find(@Param() params: PaginationParams) {
+    try {
+      const authors = await this.authorsService.find(params.limit, params.page);
+
+      return authors;
+    } catch (error) {
+      throw new InternalServerErrorException();
     }
   }
 }

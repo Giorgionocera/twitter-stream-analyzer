@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { PaginateModel } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserV2 } from 'twitter-api-v2';
@@ -8,7 +8,8 @@ import { mapAuthor } from 'src/utils';
 @Injectable()
 export class AuthorsService {
   constructor(
-    @InjectModel(Author.name) private authorModel: Model<AuthorDocument>,
+    @InjectModel(Author.name)
+    private authorModel: PaginateModel<AuthorDocument>,
   ) {}
 
   async createOrUpdate(
@@ -35,10 +36,15 @@ export class AuthorsService {
   }
 
   async find(limit = 10, page = 0) {
-    return await this.authorModel
-      .find({ valid: true })
-      .select(['authorId', 'address'])
-      .limit(limit)
-      .skip(page * limit);
+    return await this.authorModel.paginate(undefined, {
+      limit,
+      page,
+    });
+  }
+
+  async findAll() {
+    return await this.authorModel.paginate(undefined, {
+      pagination: false,
+    });
   }
 }
