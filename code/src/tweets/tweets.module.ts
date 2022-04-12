@@ -4,6 +4,7 @@ import { TweetsService } from './tweets.service';
 import { Tweet, TweetSchema } from 'src/schemas/tweet.schema';
 import { TwitterService } from './twitter.service';
 import { Author, AuthorSchema } from 'src/schemas/author.schema';
+import { AuthorsService } from './authors.service';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { Author, AuthorSchema } from 'src/schemas/author.schema';
       { name: Author.name, schema: AuthorSchema },
     ]),
   ],
-  providers: [TweetsService, TwitterService],
+  providers: [TweetsService, TwitterService, AuthorsService],
 })
 export class TweetsModule {}

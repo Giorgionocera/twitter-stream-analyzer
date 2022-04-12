@@ -2,14 +2,12 @@ export const searchValidAddress = (text: string, prefix = 'bitsong') => {
   const regex = new RegExp(`${prefix}1[a-zA-Z0-9]{38}`, 'gm');
   let address: string;
 
-  let m: RegExpExecArray;
+  const matches = text.match(regex);
 
-  if ((m = regex.exec(text)) !== null) {
-    if (m.length === 1) {
-      m.forEach((match) => {
-        address = match;
-      });
-    }
+  if (matches.length === 1) {
+    matches.forEach((match) => {
+      address = match;
+    });
   }
 
   return address;

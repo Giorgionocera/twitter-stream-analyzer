@@ -6,8 +6,6 @@ import { UserV2, TweetV2 } from 'twitter-api-v2';
 export const mapAuthor = (user: UserV2, address: string): Author => {
   const months = differenceByMonths(user.created_at);
 
-  console.log(user.created_at, months);
-
   return {
     authorId: user.id,
     twitterCreatedAt: user.created_at,
