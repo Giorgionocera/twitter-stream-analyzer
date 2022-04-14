@@ -13,7 +13,7 @@ export class PaginationParams {
   @IsNumberString()
   @IsNotEmpty()
   @ApiProperty({
-    description: 'page index (start from zero)',
+    description: 'page index (start from one)',
     type: Number,
   })
   page: number;

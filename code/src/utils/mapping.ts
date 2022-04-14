@@ -9,6 +9,7 @@ export const mapAuthor = (user: UserV2, address: string): Author => {
   return {
     authorId: user.id,
     twitterCreatedAt: user.created_at,
+    profileImageUrl: user.profile_image_url,
     name: user.name,
     username: user.username,
     address,

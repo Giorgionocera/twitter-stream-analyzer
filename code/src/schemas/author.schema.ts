@@ -21,6 +21,9 @@ export class Author {
   @Prop({ unique: true })
   address: string; // User wallet address
 
+  @Prop()
+  profileImageUrl: string;
+
   @Prop({ required: true })
   valid: boolean;
 }

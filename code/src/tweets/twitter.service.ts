@@ -27,7 +27,13 @@ export class TwitterService {
         'entities',
         'context_annotations',
       ],
-      'user.fields': ['created_at', 'username', 'location', 'entities'],
+      'user.fields': [
+        'created_at',
+        'profile_image_url',
+        'username',
+        'location',
+        'entities',
+      ],
       autoConnect: false,
     });
 
