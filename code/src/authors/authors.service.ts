@@ -1,5 +1,5 @@
 import { PaginateModel } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserV2 } from 'twitter-api-v2';
 import { Author, AuthorDocument } from 'src/schemas/author.schema';
@@ -7,6 +7,8 @@ import { mapAuthor } from 'src/utils';
 
 @Injectable()
 export class AuthorsService {
+  private readonly logger = new Logger(AuthorsService.name);
+
   constructor(
     @InjectModel(Author.name)
     private authorModel: PaginateModel<AuthorDocument>,
@@ -27,7 +29,7 @@ export class AuthorsService {
 
       return oldAuthorModel._id.toString();
     } catch (error) {
-      console.error("Author doesn't exist: ", error);
+      this.logger.verbose("Author doesn't exist, creating...");
 
       const authorModel = await new this.authorModel(author).save();
 

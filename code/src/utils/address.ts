@@ -4,7 +4,7 @@ export const searchValidAddress = (text: string, prefix = 'bitsong') => {
 
   const matches = text.match(regex);
 
-  if (matches.length === 1) {
+  if (matches && matches.length === 1) {
     matches.forEach((match) => {
       address = match;
     });
