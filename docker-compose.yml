@@ -1,21 +1,7 @@
 version: "3.9"
 services:
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
-    ports:
-      - 27017:${MONGODB_PORT}
-  #redis:
-  #  image: "redis:alpine"
-  #  restart: always
   node:
     build: ./code/.
     ports:
-      - "3000:3000"
+      - 80:${NODE_PORT}
     restart: always
-    depends_on:
-      - mongo
-      #- redis

@@ -1,4 +1,4 @@
-FROM node:16.13.2
+FROM node:16.14.0
 
 WORKDIR /usr/src/app
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD npx nest start --debug --watch
+CMD npm run build & npm run start:prod
