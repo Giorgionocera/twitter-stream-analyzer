@@ -1,32 +1,31 @@
 # compiled output
-code/dist
-code/node_modules
+dist
+node_modules
 
 # Logs
-code/logs
-code/*.log
-code/npm-debug.log*
-code/pnpm-debug.log*
-code/yarn-debug.log*
-code/yarn-error.log*
-code/lerna-debug.log*
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
 # OS
-code/.DS_Store
 .DS_Store
 
 # Tests
-code/coverage
-code/.nyc_output
+coverage
+.nyc_output
 
 # IDEs and editors
-code/.idea
-code/.project
-code/.classpath
-code/.c9/
-code/*.launch
-code/.settings/
-code/*.sublime-workspace
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
 **/.env
 
