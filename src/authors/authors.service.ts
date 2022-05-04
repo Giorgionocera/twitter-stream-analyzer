@@ -73,9 +73,14 @@ export class AuthorsService {
       .countDocuments({ valid: true })
       .exec();
 
+    const totalAccounts = await this.authorModel
+      .estimatedDocumentCount()
+      .exec();
+
     return {
       ...paginationResult,
       eligibleAccounts,
+      totalAccounts,
     };
   }
 
@@ -88,9 +93,14 @@ export class AuthorsService {
       .countDocuments({ valid: true })
       .exec();
 
+    const totalAccounts = await this.authorModel
+      .estimatedDocumentCount()
+      .exec();
+
     return {
       ...paginationResult,
       eligibleAccounts,
+      totalAccounts,
     };
   }
 }
