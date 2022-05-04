@@ -1,5 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumberString, IsNotEmpty } from 'class-validator';
+import {
+  IsNumberString,
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+} from 'class-validator';
 
 export class PaginationParams {
   @IsNumberString()
@@ -17,4 +22,12 @@ export class PaginationParams {
     type: Number,
   })
   page: number;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'search text',
+    type: String,
+  })
+  search?: string;
 }

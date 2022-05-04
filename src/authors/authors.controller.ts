@@ -24,10 +24,14 @@ export class AuthorsController {
     }
   }
 
-  @Get(':limit/:page')
+  @Get(':limit/:page/:search?')
   async find(@Param() params: PaginationParams) {
     try {
-      const authors = await this.authorsService.find(params.limit, params.page);
+      const authors = await this.authorsService.find(
+        params.limit,
+        params.page,
+        params.search,
+      );
 
       return authors;
     } catch (error) {

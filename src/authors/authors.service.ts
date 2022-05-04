@@ -37,16 +37,60 @@ export class AuthorsService {
     }
   }
 
-  async find(limit = 10, page = 0) {
-    return await this.authorModel.paginate(undefined, {
+  async find(limit = 10, page = 0, search?: string) {
+    const query = search
+      ? {
+          $or: [
+            {
+              name: {
+                $regex: `${search}`,
+                $options: 'i',
+              },
+            },
+            {
+              username: {
+                $regex: `${search}`,
+                $options: 'i',
+              },
+            },
+            {
+              address: {
+                $regex: `${search}`,
+                $options: 'i',
+              },
+            },
+          ],
+        }
+      : undefined;
+
+    const paginationResult = await this.authorModel.paginate(query, {
       limit,
       page,
+      sort: { createdAt: 'desc' },
     });
+
+    const eligibleAccounts = await this.authorModel
+      .countDocuments({ valid: true })
+      .exec();
+
+    return {
+      ...paginationResult,
+      eligibleAccounts,
+    };
   }
 
   async findAll() {
-    return await this.authorModel.paginate(undefined, {
+    const paginationResult = await this.authorModel.paginate(undefined, {
       pagination: false,
     });
+
+    const eligibleAccounts = await this.authorModel
+      .countDocuments({ valid: true })
+      .exec();
+
+    return {
+      ...paginationResult,
+      eligibleAccounts,
+    };
   }
 }
