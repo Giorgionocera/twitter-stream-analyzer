@@ -24,7 +24,7 @@ export class Author {
   @Prop()
   profileImageUrl: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, index: true })
   valid: boolean;
 }
 
