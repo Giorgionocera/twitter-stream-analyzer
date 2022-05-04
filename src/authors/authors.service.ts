@@ -23,7 +23,7 @@ export class AuthorsService {
     try {
       const oldAuthorModel = await this.authorModel.findOneAndUpdate(
         { authorId: author.authorId },
-        { address: author.address },
+        { ...author },
         { new: true },
       );
 
