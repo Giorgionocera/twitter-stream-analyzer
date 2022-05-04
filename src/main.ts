@@ -17,11 +17,11 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  /* const twitterService = app
+  const twitterService = app
     .select(TweetsModule)
     .get(TwitterService, { strict: true });
 
-  twitterService.getSearchStream().catch((error) => console.error(error)); */
+  twitterService.getSearchStream().catch((error) => console.error(error));
 
   const config = new DocumentBuilder()
     .setTitle('Twitter Analyzer')
