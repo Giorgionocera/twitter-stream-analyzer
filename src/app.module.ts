@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TweetsModule } from 'src/tweets/tweets.module';
 import { AuthorsModule } from 'src/authors/authors.module';
 import { SnapshotsModule } from 'src/snapshosts/snapshots.module';
+import { LeaderboardsModule } from 'src/leaderboards/leaderboards.module';
 import { CommandModule } from 'nestjs-command';
 
 @Module({
@@ -19,6 +20,7 @@ import { CommandModule } from 'nestjs-command';
     AuthorsModule,
     TweetsModule,
     SnapshotsModule,
+    LeaderboardsModule,
     CommandModule,
   ],
 })

@@ -6,23 +6,17 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { PaginationParams } from 'src/dto';
-import { AuthorsService } from './authors.service';
+import { LeaderboardsService } from './leaderboards.service';
 
-@ApiTags('subscriptions')
-@Controller('subscriptions')
-export class AuthorsController {
-  constructor(private authorsService: AuthorsService) {}
+@ApiTags('leaderboards')
+@Controller('leaderboards')
+export class LeaderboardsController {
+  constructor(private leaderboardsService: LeaderboardsService) {}
 
   @Get(':limit/:page/:search?')
   async find(@Param() params: PaginationParams) {
     try {
-      const authors = await this.authorsService.find(
-        params.limit,
-        params.page,
-        params.search,
-      );
-
-      return authors;
+      console.log(params);
     } catch (error) {
       throw new InternalServerErrorException();
     }
