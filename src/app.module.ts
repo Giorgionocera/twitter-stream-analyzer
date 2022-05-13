@@ -3,6 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { TweetsModule } from 'src/tweets/tweets.module';
 import { AuthorsModule } from 'src/authors/authors.module';
+import { SnapshotsModule } from 'src/snapshosts/snapshots.module';
+import { CommandModule } from 'nestjs-command';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { AuthorsModule } from 'src/authors/authors.module';
     }),
     AuthorsModule,
     TweetsModule,
+    SnapshotsModule,
+    CommandModule,
   ],
 })
 export class AppModule {}

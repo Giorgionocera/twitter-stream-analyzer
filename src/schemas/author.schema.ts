@@ -18,7 +18,7 @@ export class Author {
   @Prop({ required: true })
   username: string;
 
-  @Prop({ unique: true })
+  @Prop({ unique: true, index: true })
   address: string; // User wallet address
 
   @Prop()

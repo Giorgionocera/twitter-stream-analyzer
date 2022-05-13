@@ -4,8 +4,6 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
-import { TweetsModule } from 'src/tweets/tweets.module';
-import { TwitterService } from 'src/tweets/twitter.service';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
@@ -17,11 +15,11 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  const twitterService = app
+  /* const twitterService = app
     .select(TweetsModule)
     .get(TwitterService, { strict: true });
 
-  twitterService.getSearchStream().catch((error) => console.error(error));
+  twitterService.getSearchStream().catch((error) => console.error(error)); */
 
   const config = new DocumentBuilder()
     .setTitle('Twitter Analyzer')
