@@ -53,7 +53,7 @@ export class LeaderboardsService {
       {
         limit,
         page,
-        sort: { createdAt: 'asc' },
+        sort: { 'balance.amount': 'desc' },
       },
     );
 
