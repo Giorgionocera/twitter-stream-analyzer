@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Author } from './author.schema';
 import { AuthorBank, AuthorBankSchema } from './author-bank.schema';
-import * as paginate from 'mongoose-paginate-v2';
+import aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 
 export type LeaderboardDocument = Leaderboard & Document;
 
@@ -14,6 +14,6 @@ export class Leaderboard extends Author {
 
 const LeaderboardSchema = SchemaFactory.createForClass(Leaderboard);
 
-LeaderboardSchema.plugin(paginate);
+LeaderboardSchema.plugin(aggregatePaginate);
 
 export { LeaderboardSchema };

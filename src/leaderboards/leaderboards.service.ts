@@ -1,17 +1,62 @@
-import { Model } from 'mongoose';
-import { Injectable, Logger } from '@nestjs/common';
+import { AggregatePaginateModel } from 'mongoose';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   Leaderboard,
   LeaderboardDocument,
 } from 'src/schemas/leaderboard.schema';
+import { createSearchQuery } from 'src/utils';
 
 @Injectable()
 export class LeaderboardsService {
-  private readonly logger = new Logger(LeaderboardsService.name);
-
   constructor(
     @InjectModel(Leaderboard.name)
-    private leaderboardModel: Model<LeaderboardDocument>,
+    private leaderboardModel: AggregatePaginateModel<LeaderboardDocument>,
   ) {}
+
+  async find(limit = 10, page = 0, search?: string) {
+    const query = createSearchQuery(search); // OR Query
+
+    const aggregate = this.leaderboardModel.aggregate([
+      {
+        $match: query,
+      },
+      {
+        $set: {
+          lastCoins: {
+            $last: '$banks.coins',
+          },
+        },
+      },
+      {
+        $set: {
+          balance: {
+            $filter: {
+              input: '$lastCoins',
+              as: 'coin',
+              cond: { $eq: ['$$coin.denom', 'ubtsg'] },
+            },
+          },
+        },
+      },
+      { $unwind: '$balance' },
+      {
+        $project: {
+          banks: false,
+          lastCoins: false,
+        },
+      },
+    ]);
+
+    const paginationResult = await this.leaderboardModel.aggregatePaginate(
+      aggregate,
+      {
+        limit,
+        page,
+        sort: { createdAt: 'asc' },
+      },
+    );
+
+    return paginationResult;
+  }
 }

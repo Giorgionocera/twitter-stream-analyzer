@@ -16,8 +16,15 @@ export class LeaderboardsController {
   @Get(':limit/:page/:search?')
   async find(@Param() params: PaginationParams) {
     try {
-      console.log(params);
+      const leaderboard = await this.leaderboardsService.find(
+        params.limit,
+        params.page,
+        params.search,
+      );
+
+      return leaderboard;
     } catch (error) {
+      console.error(error);
       throw new InternalServerErrorException();
     }
   }

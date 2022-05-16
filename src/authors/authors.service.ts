@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserV2 } from 'twitter-api-v2';
 import { Author, AuthorDocument } from 'src/schemas/author.schema';
-import { mapAuthor } from 'src/utils';
+import { createSearchQuery, mapAuthor } from 'src/utils';
 
 @Injectable()
 export class AuthorsService {
@@ -38,30 +38,7 @@ export class AuthorsService {
   }
 
   async find(limit = 10, page = 0, search?: string) {
-    const query = search
-      ? {
-          $or: [
-            {
-              name: {
-                $regex: `${search}`,
-                $options: 'i',
-              },
-            },
-            {
-              username: {
-                $regex: `${search}`,
-                $options: 'i',
-              },
-            },
-            {
-              address: {
-                $regex: `${search}`,
-                $options: 'i',
-              },
-            },
-          ],
-        }
-      : undefined;
+    const query = createSearchQuery(search);
 
     const paginationResult = await this.authorModel.paginate(query, {
       limit,
