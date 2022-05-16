@@ -4,7 +4,7 @@ import { Balance, BalanceSchema } from './balance.schema';
 
 export type AuthorBankDocument = AuthorBank & Document;
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, _id: false })
 export class AuthorBank {
   @Prop({ type: [BalanceSchema], default: [] })
   coins: Balance[];

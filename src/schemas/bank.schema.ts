@@ -6,7 +6,7 @@ export type BankDocument = Bank & Document;
 
 @Schema()
 export class Bank {
-  @Prop({ required: true, unique: true, index: true })
+  @Prop({ required: true, index: true })
   address: string;
 
   @Prop({ type: [BalanceSchema], default: [] })

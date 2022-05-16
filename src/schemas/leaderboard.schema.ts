@@ -9,7 +9,7 @@ export type LeaderboardDocument = Leaderboard & Document;
 @Schema({ timestamps: true })
 export class Leaderboard extends Author {
   @Prop({ type: [AuthorBankSchema], default: [] })
-  coins: AuthorBank[];
+  banks: AuthorBank[];
 }
 
 const LeaderboardSchema = SchemaFactory.createForClass(Leaderboard);
