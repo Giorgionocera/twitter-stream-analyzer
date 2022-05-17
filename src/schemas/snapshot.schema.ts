@@ -9,6 +9,9 @@ export type SnapshotDocument = Snapshot & Document;
 export class Snapshot {
   @Prop({ type: [BankSchema], default: [] })
   banks: Bank[];
+
+  @Prop({ type: String, required: true })
+  blockHeight: string;
 }
 
 const SnapshotSchema = SchemaFactory.createForClass(Snapshot);
