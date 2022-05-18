@@ -41,6 +41,13 @@ export class LeaderboardsService {
       },
       { $unwind: '$balance' },
       {
+        $set: {
+          convertAmount: {
+            $toDouble: '$balance.amount',
+          },
+        },
+      },
+      {
         $project: {
           banks: false,
           lastCoins: false,
@@ -53,7 +60,7 @@ export class LeaderboardsService {
       {
         limit,
         page,
-        sort: { 'balance.amount': 'desc' },
+        sort: { convertAmount: 'desc' },
       },
     );
 
