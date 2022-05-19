@@ -10,6 +10,9 @@ export type LeaderboardDocument = Leaderboard & Document;
 export class Leaderboard extends Author {
   @Prop({ type: [AuthorBankSchema], default: [] })
   banks: AuthorBank[];
+
+  @Prop({ default: false })
+  disqualified: boolean;
 }
 
 const LeaderboardSchema = SchemaFactory.createForClass(Leaderboard);

@@ -14,6 +14,21 @@ export class LeaderboardsService {
     private leaderboardModel: AggregatePaginateModel<LeaderboardDocument>,
   ) {}
 
+  async updateDisqualified(addresses: string[]) {
+    await this.leaderboardModel.updateMany(
+      {
+        address: {
+          $in: addresses,
+        },
+      },
+      {
+        $set: {
+          disqualified: true,
+        },
+      },
+    );
+  }
+
   async find(limit = 10, page = 0, search?: string) {
     const query = createSearchQuery(search); // OR Query
 
