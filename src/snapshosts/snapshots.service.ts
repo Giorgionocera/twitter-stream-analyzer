@@ -19,9 +19,26 @@ export class SnapshotsService {
     private leaderboardModel: Model<LeaderboardDocument>,
   ) {}
 
-  async createSnapshot(banks: Bank[]) {
+  async findLatest() {
+    const latest = await this.snapshotModel.findOne(
+      {},
+      {},
+      {
+        sort: {
+          createdAt: -1,
+        },
+      },
+    );
+
+    return latest;
+  }
+
+  async createSnapshot(banks: Bank[], blockHeight: string) {
     try {
-      const snapshotModel = await new this.snapshotModel({ banks }).save();
+      const snapshotModel = await new this.snapshotModel({
+        banks,
+        blockHeight,
+      }).save();
       const snapshotID = snapshotModel._id.toString();
       const snapshotObjectID = new Types.ObjectId(snapshotID);
 

@@ -13,5 +13,6 @@ import { SnapshotsService } from './snapshots.service';
     ]),
   ],
   providers: [SnapshotsService, SnapshotsCommand],
+  exports: [SnapshotsService],
 })
 export class SnapshotsModule {}

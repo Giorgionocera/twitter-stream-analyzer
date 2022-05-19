@@ -1,4 +1,4 @@
-import { Command, Positional } from 'nestjs-command';
+import { Command, Positional, Option } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
 import { SnapshotsService } from './snapshots.service';
 import { readFileSync } from 'fs';
@@ -19,6 +19,14 @@ export class SnapshotsCommand {
       type: 'string',
     })
     bankFilePath: string,
+    @Option({
+      name: 'block-height',
+      describe: 'snapshot block height',
+      type: 'string',
+      alias: 'b',
+      required: true,
+    })
+    blockHeight: string,
   ) {
     try {
       const file = await readFileSync(bankFilePath, 'utf-8');
@@ -26,7 +34,10 @@ export class SnapshotsCommand {
 
       console.log(`file: ${bankFilePath} read`);
 
-      const snapshotId = await this.snapshotsService.createSnapshot(banks);
+      const snapshotId = await this.snapshotsService.createSnapshot(
+        banks,
+        blockHeight,
+      );
 
       console.log(snapshotId);
     } catch (error) {

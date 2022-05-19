@@ -24,7 +24,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Twitter Analyzer')
     .setDescription(
-      'This is a twitter analyzer for bitsong testnet subscriptions.',
+      'This is a twitter analyzer for bitsong testnet subscriptions and leaderboard.',
     )
     .setVersion('1.0')
     .build();

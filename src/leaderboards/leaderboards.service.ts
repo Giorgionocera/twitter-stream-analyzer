@@ -6,12 +6,14 @@ import {
   LeaderboardDocument,
 } from 'src/schemas/leaderboard.schema';
 import { createSearchQuery } from 'src/utils';
+import { SnapshotsService } from 'src/snapshosts/snapshots.service';
 
 @Injectable()
 export class LeaderboardsService {
   constructor(
     @InjectModel(Leaderboard.name)
     private leaderboardModel: AggregatePaginateModel<LeaderboardDocument>,
+    private snapshotsService: SnapshotsService,
   ) {}
 
   async updateDisqualified(addresses: string[]) {
@@ -75,10 +77,16 @@ export class LeaderboardsService {
       {
         limit,
         page,
-        sort: { convertAmount: 'desc' },
+        sort: { disqualified: 0, convertAmount: -1 },
       },
     );
 
-    return paginationResult;
+    const snapshot = await this.snapshotsService.findLatest();
+
+    return {
+      ...paginationResult,
+      snapshotDate: snapshot.createdAt,
+      blockHeight: snapshot.blockHeight,
+    };
   }
 }

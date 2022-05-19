@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { Bank, BankSchema } from './bank.schema';
 import * as paginate from 'mongoose-paginate-v2';
 
-export type SnapshotDocument = Snapshot & Document;
+export type SnapshotDocument = Snapshot & Document & { createdAt: string };
 
 @Schema({ timestamps: true })
 export class Snapshot {
