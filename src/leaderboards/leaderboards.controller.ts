@@ -17,8 +17,8 @@ export class LeaderboardsController {
   async find(@Param() params: PaginationParams) {
     try {
       const leaderboard = await this.leaderboardsService.find(
-        params.limit,
-        params.page,
+        Math.abs(params.limit),
+        Math.abs(params.page),
         params.search,
       );
 
