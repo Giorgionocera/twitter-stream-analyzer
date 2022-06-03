@@ -17,8 +17,8 @@ export class AuthorsController {
   async find(@Param() params: PaginationParams) {
     try {
       const authors = await this.authorsService.find(
-        params.limit,
-        params.page,
+        Math.abs(params.limit),
+        Math.abs(params.page) > 0 ? Math.abs(params.page) : 1,
         params.search,
       );
 

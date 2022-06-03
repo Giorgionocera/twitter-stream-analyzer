@@ -18,7 +18,7 @@ export class LeaderboardsController {
     try {
       const leaderboard = await this.leaderboardsService.find(
         Math.abs(params.limit),
-        Math.abs(params.page),
+        Math.abs(params.page) > 0 ? Math.abs(params.page) : 1,
         params.search,
       );
 
